@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'
 import './App.css';
+import { ExpenseForm } from './components/NewExpenseForm'
 
 function App() {
   return (
     <div className="App">
-      test
+      <ExpenseForm></ExpenseForm>
     </div>
   );
 }
