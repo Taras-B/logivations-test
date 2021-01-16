@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import { HookFormSelect } from '../HookFormSelect'
+import { useDispatch } from 'react-redux'
+import { actionsExpenses } from '../../store/actions/actionsExpenses'
+import { IPayloadAddAction } from '../../store/types'
 
 //TODO: Try create ENUM in currency interface and other
 
@@ -18,9 +21,15 @@ interface IFormValues {
 }
 
 export const ExpenseForm = () => {
+    const dispatch = useDispatch()
     const {control, handleSubmit} = useForm<IFormValues>()
 
     const onSubmitForm = (data: IFormValues) => {
+        const dataSend: IPayloadAddAction = {
+            datePick: data.datePick,
+            data: {currency: data.currency, nameProduct: data.nameProduct, price: data.price},
+        }
+        dispatch(actionsExpenses.add(dataSend))
         console.log(data)
     }
     return (
@@ -37,6 +46,7 @@ export const ExpenseForm = () => {
                                                 onChange={onChange}
                                                 value={value}
                                                 animateYearScrolling
+                                                required={true}
                                             />
                                         )}/>
                         </MuiPickersUtilsProvider>
@@ -48,7 +58,8 @@ export const ExpenseForm = () => {
                                     control={control}
                                     defaultValue=""
                                     label='Name Product'
-                                    fullWidth/>
+                                    fullWidth
+                                    required={true}/>
 
                     </Grid>
                     <Grid item xs={6}>
@@ -57,7 +68,8 @@ export const ExpenseForm = () => {
                                     control={control}
                                     defaultValue=""
                                     fullWidth
-                                    label='Price'/>
+                                    label='Price'
+                                    required={true}/>
 
                     </Grid>
                     <Grid item xs={6}>

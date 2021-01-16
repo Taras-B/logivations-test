@@ -10,6 +10,7 @@ export interface IHookSelectProps {
     label: string
     control: Control
     defaultValue?: string
+
 }
 
 export const HookFormSelect: React.FC<IHookSelectProps> = ({
@@ -18,6 +19,7 @@ export const HookFormSelect: React.FC<IHookSelectProps> = ({
                                                                control,
                                                                defaultValue,
                                                                children,
+
                                                                ...props
                                                            }) => {
     const labelId = `${name}-label`
@@ -34,6 +36,7 @@ export const HookFormSelect: React.FC<IHookSelectProps> = ({
                 control={control}
                 defaultValue={defaultValue || ''}
                 variant='outlined'
+                required={true}
             />
         </FormControl>
     )
