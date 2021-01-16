@@ -24,7 +24,7 @@ export const ExpenseForm = () => {
         console.log(data)
     }
     return (
-        <Grid container justify='center' spacing={4}>
+        <>
             <form onSubmit={handleSubmit(onSubmitForm)}>
                 <Grid container justify='center' spacing={4}>
                     <Grid item xs={12}>
@@ -83,7 +83,7 @@ export const ExpenseForm = () => {
 
             </form>
 
-        </Grid>
+        </>
     )
 }
 
