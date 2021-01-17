@@ -1,34 +1,68 @@
 import React from 'react'
 
+import { useSelector, useDispatch } from 'react-redux'
 import dateFnsFormat from 'date-fns/format'
 
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import { useSelector } from 'react-redux'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+
 import { RootState } from '../../store/rootReducer'
+import { actionsExpenses } from '../../store/actions/actionsExpenses'
 
-import {ExpenseItem} from './ExpenseItem'
+import { ExpenseItem } from './ExpenseItem'
 
+const useStyles = makeStyles({
+  rootPaper: {
+    padding: 10,
+    margin: '20px 5px',
+    backgroundImage:
+      'linear-gradient(to right bottom, #051937, #004d7a, #008793, #00bf72, #a8eb12)',
+  },
+  textColor: {
+    color: '#fff',
+  },
+})
 
 export const ListExpense = () => {
+  const dispatch = useDispatch()
+  const classes = useStyles()
 
-    const expense = useSelector((state: RootState) => state.expense.expensesData)
+  const expense = useSelector((state: RootState) => state.expense.expensesData)
 
-    return (
-        <Grid item xs={12}>
-            {expense.map(item => {
-                return (
-                    <Paper elevation={7} style={{padding: 10}} key={item.id}>
-                        <Typography>Date: {dateFnsFormat(item.datePick, 'MM/dd/yyyy')}</Typography>
-                        {item.data.map((d, i) => (
-                            <ExpenseItem key={i} price={d.price} currency={d.currency} nameProduct={d.nameProduct} />
-                        ))}
-                    </Paper>
-                )
-            })}
+  const onClearExpense = (id: string) => {
+    dispatch(actionsExpenses.deleteByDate(id))
+  }
 
-        </Grid>
-    )
+  return (
+    <Grid item xs={12}>
+      {expense.map((item) => {
+        return (
+          <Paper elevation={7} className={classes.rootPaper} key={item.id}>
+            <Grid container justify='space-between'>
+              <Typography className={classes.textColor}>
+                Date: {dateFnsFormat(item.datePick, 'MM/dd/yyyy')}
+              </Typography>
+              <Button
+                onClick={() => onClearExpense(item.id)}
+                variant='contained'
+                color='secondary'>
+                Delete Date
+              </Button>
+            </Grid>
+            {item.data.map((d, i) => (
+              <ExpenseItem
+                key={i}
+                price={d.price}
+                currency={d.currency}
+                nameProduct={d.nameProduct}
+              />
+            ))}
+          </Paper>
+        )
+      })}
+    </Grid>
+  )
 }
-

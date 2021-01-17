@@ -9,7 +9,7 @@ import { IExpense } from '../../store/types'
 
 export const ExpenseItem: React.FC<IExpense> = ({nameProduct, currency, price}) => {
     return (
-        <Paper elevation={7} style={{padding: 10}}>
+        <Paper elevation={7} style={{padding: '10px 5px', margin: '10px 0'}}>
             <Grid container spacing={1} alignItems='center'>
                 <Grid item xs={12} md={11}>
                     <Typography variant='h6'>{nameProduct}</Typography>
