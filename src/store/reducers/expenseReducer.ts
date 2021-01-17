@@ -5,6 +5,7 @@ import {
   ExpenseAction,
   ExpenseActionType,
   IDateExpense,
+  SortOrder,
 } from '../types'
 
 const initialExpenseState: IExpenseState = {
@@ -43,6 +44,7 @@ const initialExpenseState: IExpenseState = {
     },
   ],
   currenciesRate: [],
+  sortOrder: SortOrder.ASC,
   loading: LoadingState.LOADED,
 }
 
@@ -79,6 +81,10 @@ export const expenseReducer = produce(
           draft.expensesData.findIndex((item) => item.id === action.payload),
           1
         )
+        break
+      case ExpenseActionType.SORT_EXPENSE:
+        draft.sortOrder =
+          draft.sortOrder === SortOrder.ASC ? SortOrder.DSC : SortOrder.ASC
         break
       case ExpenseActionType.SET_LOADING:
         draft.loading = action.payload

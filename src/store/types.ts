@@ -19,7 +19,13 @@ export interface IDateExpense {
 export interface IExpenseState {
   expensesData: IDateExpense[]
   currenciesRate: string[]
+  sortOrder: SortOrder
   loading: LoadingState
+}
+
+export enum SortOrder {
+  ASC = 'ASC',
+  DSC = 'DSC',
 }
 
 export enum LoadingState {
@@ -34,6 +40,7 @@ export enum ExpenseActionType {
   SET_LOADING = 'expense/SET_LOADING',
   ADD_EXPENSE = 'expense/ADD_EXPENSE',
   DELETE_EXPENSE = 'expense/DELETE_BY_EXPENSE',
+  SORT_EXPENSE = 'expense/SORT_EXPENSE',
 }
 
 export interface IPayloadAddAction {
@@ -45,6 +52,9 @@ export interface ISetCurrencyAction extends Action<ExpenseActionType> {
   type: ExpenseActionType.SET_CURRENCY
   payload: string[]
 }
+export interface IFetchCurrencyAction extends Action<ExpenseActionType> {
+  type: ExpenseActionType.FETCH_CURRENCY
+}
 
 export interface IAddExpenseAction extends Action<ExpenseActionType> {
   type: ExpenseActionType.ADD_EXPENSE
@@ -55,10 +65,9 @@ export interface IDeleteByDateExpenseAction extends Action<ExpenseActionType> {
   payload: string
 }
 
-export interface IFetchCurrencyAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.FETCH_CURRENCY
+export interface ISetSortAction extends Action<ExpenseActionType> {
+  type: ExpenseActionType.SORT_EXPENSE
 }
-
 export interface ISetLoadingAction extends Action<ExpenseActionType> {
   type: ExpenseActionType.SET_LOADING
   payload: LoadingState
@@ -70,3 +79,4 @@ export type ExpenseAction =
   | IFetchCurrencyAction
   | ISetLoadingAction
   | IDeleteByDateExpenseAction
+  | ISetSortAction

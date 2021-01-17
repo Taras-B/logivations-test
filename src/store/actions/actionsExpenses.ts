@@ -4,6 +4,7 @@ import {
   IAddExpenseAction,
   IPayloadAddAction,
   IDeleteByDateExpenseAction,
+  ISetSortAction,
 } from '../types'
 
 export const actionsExpenses = {
@@ -18,5 +19,8 @@ export const actionsExpenses = {
   setCurrency: (payload: string[]): ISetCurrencyAction => ({
     type: ExpenseActionType.SET_CURRENCY,
     payload,
+  }),
+  setSort: (): ISetSortAction => ({
+    type: ExpenseActionType.SORT_EXPENSE,
   }),
 }

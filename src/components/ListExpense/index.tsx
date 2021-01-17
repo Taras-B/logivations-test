@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { RootState } from '../../store/rootReducer'
 import { actionsExpenses } from '../../store/actions/actionsExpenses'
 
 import { ExpenseItem } from './ExpenseItem'
+import { sortExpensesData } from '../../store/selectors/expenseSelectors'
 
 const useStyles = makeStyles({
   rootPaper: {
@@ -30,14 +30,21 @@ export const ListExpense = () => {
   const dispatch = useDispatch()
   const classes = useStyles()
 
-  const expense = useSelector((state: RootState) => state.expense.expensesData)
+  const expense = useSelector(sortExpensesData)
 
   const onClearExpense = (id: string) => {
     dispatch(actionsExpenses.deleteByDate(id))
   }
+  console.log('LIST')
 
   return (
     <Grid item xs={12}>
+      <Grid container>
+        <Button onClick={() => dispatch(actionsExpenses.setSort())} variant='contained'>
+          Sort Date
+        </Button>
+      </Grid>
+
       {expense.map((item) => {
         return (
           <Paper elevation={7} className={classes.rootPaper} key={item.id}>
