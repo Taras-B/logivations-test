@@ -1,27 +1,29 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+
 import DateFnsUtils from '@date-io/date-fns'
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
-import { HookFormSelect } from '../HookFormSelect'
-import { useDispatch } from 'react-redux'
-import { actionsExpenses } from '../../store/actions/actionsExpenses'
-import { IPayloadAddAction } from '../../store/types'
 
-//TODO: Try create ENUM in currency interface and other
+import { HookFormSelect } from '../HookFormSelect'
+import { actionsExpenses } from '../../store/actions/actionsExpenses'
+import { ICurrencyRate, IPayloadAddAction } from '../../store/types'
+import { currencyRateKeys } from '../../store/selectors/currencySelector'
 
 interface IFormValues {
   datePick: Date
   nameProduct: string
   price: string
-  currency: string
+  currency: keyof ICurrencyRate
 }
 
 export const ExpenseForm = () => {
   const dispatch = useDispatch()
+  const keysCurrency = useSelector(currencyRateKeys)
   const { control, handleSubmit } = useForm<IFormValues>()
 
   const onSubmitForm = (data: IFormValues) => {
@@ -88,9 +90,12 @@ export const ExpenseForm = () => {
               name='currency'
               label='Choose currency'
               control={control}>
-              <MenuItem value='3'>03</MenuItem>
-              <MenuItem value='6'>06</MenuItem>
-              <MenuItem value='9'>09</MenuItem>
+              {keysCurrency &&
+                keysCurrency.map((key, i) => (
+                  <MenuItem key={i} value={key}>
+                    {key}
+                  </MenuItem>
+                ))}
             </HookFormSelect>
           </Grid>
 

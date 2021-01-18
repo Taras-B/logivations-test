@@ -14,17 +14,17 @@ const initialExpenseState: IExpenseState = {
       datePick: new Date('2021-01-16T12:47:06.154Z'),
       data: [
         {
-          currency: '3',
+          currency: 'USD',
           nameProduct: 'iPhone',
           price: 56,
         },
         {
-          currency: '3',
+          currency: 'USD',
           nameProduct: 'MacBook ',
           price: 58,
         },
         {
-          currency: '9',
+          currency: 'UAH',
           nameProduct: 'Audi A6',
           price: 5607,
         },
@@ -35,7 +35,7 @@ const initialExpenseState: IExpenseState = {
       datePick: new Date('2021-01-13T12:47:00.000Z'),
       data: [
         {
-          currency: '9',
+          currency: 'PLN',
           nameProduct: 'Tesla Model 3',
           price: 860,
         },

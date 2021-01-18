@@ -1,10 +1,21 @@
 import { AppDispatch, AppThunk } from '..'
 import { expenseAPI } from '../../api'
-import { EnumActionType, ISetCurrencyAction, ICurrencyRate } from '../types'
+import {
+  EnumActionType,
+  ISetCurrencyAction,
+  ICurrencyRate,
+  ISetExchangeToCurrencyAction,
+} from '../types'
 
 export const actionsCurrencyRate = {
   setCurrency: (payload: ICurrencyRate): ISetCurrencyAction => ({
     type: EnumActionType.SET_CURRENCY,
+    payload,
+  }),
+  setExchangeToCurrency: (
+    payload: keyof ICurrencyRate
+  ): ISetExchangeToCurrencyAction => ({
+    type: EnumActionType.SET_EXCHANGE_TO_CURRENCY,
     payload,
   }),
 }
