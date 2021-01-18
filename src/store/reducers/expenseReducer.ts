@@ -1,9 +1,8 @@
 import produce, { Draft } from 'immer'
 import {
   IExpenseState,
-  LoadingState,
   ExpenseAction,
-  ExpenseActionType,
+  EnumActionType,
   IDateExpense,
   SortOrder,
 } from '../types'
@@ -43,23 +42,13 @@ const initialExpenseState: IExpenseState = {
       ],
     },
   ],
-  currenciesRate: [],
   sortOrder: SortOrder.ASC,
-  loading: LoadingState.LOADED,
 }
 
 export const expenseReducer = produce(
   (draft: Draft<IExpenseState>, action: ExpenseAction) => {
     switch (action.type) {
-      case ExpenseActionType.FETCH_CURRENCY:
-        draft.currenciesRate = []
-        draft.loading = LoadingState.LOADING
-        break
-      case ExpenseActionType.SET_CURRENCY:
-        draft.currenciesRate = action.payload
-        draft.loading = LoadingState.LOADED
-        break
-      case ExpenseActionType.ADD_EXPENSE:
+      case EnumActionType.ADD_EXPENSE:
         const { data, datePick } = action.payload
         if (draft.expensesData.some((e) => e.datePick.getDate() === datePick.getDate())) {
           draft.expensesData.map((d) => {
@@ -76,18 +65,17 @@ export const expenseReducer = produce(
 
         break
 
-      case ExpenseActionType.DELETE_EXPENSE:
-        draft.expensesData.splice(
-          draft.expensesData.findIndex((item) => item.id === action.payload),
-          1
-        )
+      case EnumActionType.DELETE_EXPENSE:
+        const index = draft.expensesData.findIndex((item) => item.id === action.payload)
+        if (index !== -1) draft.expensesData.splice(index, 1)
+        // draft.expensesData.splice(
+        //   draft.expensesData.findIndex((item) => item.id === action.payload),
+        //   1
+        // )
         break
-      case ExpenseActionType.SORT_EXPENSE:
+      case EnumActionType.SORT_EXPENSE:
         draft.sortOrder =
           draft.sortOrder === SortOrder.ASC ? SortOrder.DSC : SortOrder.ASC
-        break
-      case ExpenseActionType.SET_LOADING:
-        draft.loading = action.payload
         break
 
       default:

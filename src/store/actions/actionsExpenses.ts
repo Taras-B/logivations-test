@@ -1,6 +1,5 @@
 import {
-  ExpenseActionType,
-  ISetCurrencyAction,
+  EnumActionType,
   IAddExpenseAction,
   IPayloadAddAction,
   IDeleteByDateExpenseAction,
@@ -9,18 +8,15 @@ import {
 
 export const actionsExpenses = {
   add: (payload: IPayloadAddAction): IAddExpenseAction => ({
-    type: ExpenseActionType.ADD_EXPENSE,
+    type: EnumActionType.ADD_EXPENSE,
     payload,
   }),
   deleteByDate: (payload: string): IDeleteByDateExpenseAction => ({
-    type: ExpenseActionType.DELETE_EXPENSE,
+    type: EnumActionType.DELETE_EXPENSE,
     payload,
   }),
-  setCurrency: (payload: string[]): ISetCurrencyAction => ({
-    type: ExpenseActionType.SET_CURRENCY,
-    payload,
-  }),
+
   setSort: (): ISetSortAction => ({
-    type: ExpenseActionType.SORT_EXPENSE,
+    type: EnumActionType.SORT_EXPENSE,
   }),
 }

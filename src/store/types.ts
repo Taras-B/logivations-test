@@ -18,9 +18,21 @@ export interface IDateExpense {
 
 export interface IExpenseState {
   expensesData: IDateExpense[]
-  currenciesRate: string[]
   sortOrder: SortOrder
+}
+
+export interface ICurrencyState {
+  currenciesRate?: ICurrencyRate
   loading: LoadingState
+}
+
+export interface ICurrencyRate {
+  EUR: number
+  GBP: number
+  JPY: number
+  USD: number
+  PLN: number
+  UAH: number
 }
 
 export enum SortOrder {
@@ -34,7 +46,7 @@ export enum LoadingState {
   ERROR = 'ERROR',
 }
 
-export enum ExpenseActionType {
+export enum EnumActionType {
   FETCH_CURRENCY = 'expense/FETCH_CURRENCY',
   SET_CURRENCY = 'expense/SET_CURRENCY',
   SET_LOADING = 'expense/SET_LOADING',
@@ -48,35 +60,34 @@ export interface IPayloadAddAction {
   datePick: Date
 }
 
-export interface ISetCurrencyAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.SET_CURRENCY
-  payload: string[]
+export interface ISetCurrencyAction extends Action<EnumActionType> {
+  type: EnumActionType.SET_CURRENCY
+  payload: ICurrencyRate
 }
-export interface IFetchCurrencyAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.FETCH_CURRENCY
+export interface IFetchCurrencyAction extends Action<EnumActionType> {
+  type: EnumActionType.FETCH_CURRENCY
 }
 
-export interface IAddExpenseAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.ADD_EXPENSE
+export interface IAddExpenseAction extends Action<EnumActionType> {
+  type: EnumActionType.ADD_EXPENSE
   payload: IPayloadAddAction
 }
-export interface IDeleteByDateExpenseAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.DELETE_EXPENSE
+export interface IDeleteByDateExpenseAction extends Action<EnumActionType> {
+  type: EnumActionType.DELETE_EXPENSE
   payload: string
 }
 
-export interface ISetSortAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.SORT_EXPENSE
+export interface ISetSortAction extends Action<EnumActionType> {
+  type: EnumActionType.SORT_EXPENSE
 }
-export interface ISetLoadingAction extends Action<ExpenseActionType> {
-  type: ExpenseActionType.SET_LOADING
+export interface ISetLoadingAction extends Action<EnumActionType> {
+  type: EnumActionType.SET_LOADING
   payload: LoadingState
 }
 
 export type ExpenseAction =
-  | ISetCurrencyAction
   | IAddExpenseAction
-  | IFetchCurrencyAction
-  | ISetLoadingAction
   | IDeleteByDateExpenseAction
   | ISetSortAction
+
+export type CurrencyAction = ISetCurrencyAction | IFetchCurrencyAction | ISetLoadingAction

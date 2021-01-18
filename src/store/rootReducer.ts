@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
+import { currencyReducer } from './reducers/currencyReducer'
 import { expenseReducer } from './reducers/expenseReducer'
-import { IExpenseState } from './types'
+import { ICurrencyState, IExpenseState } from './types'
 
 export const rootReducer = combineReducers({
-    expense: expenseReducer,
-
+  expense: expenseReducer,
+  currency: currencyReducer,
 })
 
 export type RootState = {
-    expense: IExpenseState
-
+  expense: IExpenseState
+  currency: ICurrencyState
 }
