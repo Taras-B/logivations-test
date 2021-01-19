@@ -77,7 +77,7 @@ export const ListExpense = () => {
           </Button>
         </Grid>
         <Grid container spacing={4} alignItems='center' item xs={12} md={8}>
-          <form onSubmit={handleSubmit(onSubmitSelect)}>
+          <form id='hook-form' onSubmit={handleSubmit(onSubmitSelect)}>
             <HookFormSelect
               id='currency-select'
               name='currency'
@@ -86,11 +86,12 @@ export const ListExpense = () => {
               {keysCurrency &&
                 keysCurrency.map((key, i) => (
                   <MenuItem key={i} value={key}>
-                    {key}
+                    <Button form='hook-form' type='submit'>
+                      {key}
+                    </Button>
                   </MenuItem>
                 ))}
             </HookFormSelect>
-            <Button type='submit'>Submit</Button>
           </form>
           <Grid item xs={12} sm={4}>
             <Typography variant='h6'>Total: {totalCurrency}</Typography>
