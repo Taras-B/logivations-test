@@ -3,17 +3,13 @@ import { ICurrencyState, LoadingState, EnumActionType, CurrencyAction } from '..
 
 const initialExpenseState: ICurrencyState = {
   currenciesRate: undefined,
-  exchangeTo: null,
+  exchangeTo: 'EUR',
   loading: LoadingState.LOADED,
 }
 
 export const currencyReducer = produce(
   (draft: Draft<ICurrencyState>, action: CurrencyAction) => {
     switch (action.type) {
-      case EnumActionType.FETCH_CURRENCY:
-        draft.currenciesRate = undefined
-        draft.loading = LoadingState.LOADING
-        break
       case EnumActionType.SET_CURRENCY:
         draft.currenciesRate = action.payload
         draft.loading = LoadingState.LOADED

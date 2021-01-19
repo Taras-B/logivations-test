@@ -23,7 +23,7 @@ export interface IExpenseState {
 
 export interface ICurrencyState {
   currenciesRate?: ICurrencyRate
-  exchangeTo: keyof ICurrencyRate | null
+  exchangeTo: keyof ICurrencyRate
   loading: LoadingState
 }
 

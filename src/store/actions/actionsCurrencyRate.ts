@@ -5,11 +5,17 @@ import {
   ISetCurrencyAction,
   ICurrencyRate,
   ISetExchangeToCurrencyAction,
+  LoadingState,
+  ISetLoadingAction,
 } from '../types'
 
 export const actionsCurrencyRate = {
   setCurrency: (payload: ICurrencyRate): ISetCurrencyAction => ({
     type: EnumActionType.SET_CURRENCY,
+    payload,
+  }),
+  setLoading: (payload: LoadingState): ISetLoadingAction => ({
+    type: EnumActionType.SET_LOADING,
     payload,
   }),
   setExchangeToCurrency: (
@@ -24,14 +30,13 @@ export const actionsCurrencyRate = {
 
 export const getCurrencyRate = (): AppThunk => async (dispatch: AppDispatch) => {
   try {
+    dispatch(actionsCurrencyRate.setLoading(LoadingState.LOADING))
     const data = await expenseAPI.get()
-    console.log(data)
     if (data.success) {
       dispatch(actionsCurrencyRate.setCurrency(data.rates))
     }
   } catch (e) {
     console.log(e)
-
-    // dispatch(setEndLoading())
+    dispatch(actionsCurrencyRate.setLoading(LoadingState.ERROR))
   }
 }

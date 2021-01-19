@@ -13,8 +13,6 @@ interface IGetExpenseResult {
 
 export const expenseAPI = {
   get(): Promise<IGetExpenseResult> {
-    console.log('click')
-
     return fetch(`${BASE_URL}&symbols=${symbolsCurrency}`).then((res) => res.json())
   },
 }
